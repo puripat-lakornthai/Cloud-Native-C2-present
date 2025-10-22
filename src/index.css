@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+   All colors MUST be HSL.
+*/
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 262 83% 58%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 197 71% 73%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    /* Custom design tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(262 83% 58%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 95%), hsl(217 100% 97%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --shadow-soft: 0 4px 20px hsl(217 91% 60% / 0.15);
+    --shadow-hover: 0 8px 30px hsl(217 91% 60% / 0.25);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 { @apply font-bold; }
+
+  /* ===== Kill any legacy left border on headings (and their pseudos) ===== */
+  h1, h2, h3, h4, h5, h6 {
+    border-left: 0 !important;
+    padding-left: 0 !important;
+    position: relative;
+  }
+  h1::before, h1::after,
+  h2::before, h2::after,
+  h3::before, h3::after,
+  h4::before, h4::after,
+  h5::before, h5::after,
+  h6::before, h6::after {
+    content: none !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ===== Utilities ===== */
+@layer utilities {
+  .slide-enter { animation: slideIn 0.5s ease-out; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Use on a wrapper around heading to ensure typography plugins don't add dividers */
+  .not-prose * { border-left: 0; }
+
+  /* Optional: explicit reset class in case you only want to clean at certain places */
+  .heading-clean,
+  .heading-clean::before,
+  .heading-clean::after {
+    content: none !important;
+    border: 0 !important;
+    background: transparent !important;
+    padding-left: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Optional: pretty gradient bar to the left of a heading */
+  .heading-with-bar {
+    position: relative;
+    padding-left: 1.25rem; /* space for bar */
+  }
+  .heading-with-bar::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: .375rem;          /* 1.5px/2px-ish */
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, hsl(217 91% 60%), hsl(262 83% 58%));
+    box-shadow: 0 2px 8px hsl(217 91% 60% / .35);
+  }
+}
